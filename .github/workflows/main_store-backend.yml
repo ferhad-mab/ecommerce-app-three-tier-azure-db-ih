@@ -24,7 +24,7 @@ jobs:
           node-version: '22.x'
 
       - name: npm install, build, and test
-        working-directory: ./backend   #  adjust working dir to fix build error
+        working-directory: ./ecommerce-app-backend   #  adjust working dir to fix build error
         run: |
           npm install
           npm run build --if-present
@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: ./backend   # adjust path to only upload backend code
+          path: ./ecommerce-app-backend   # adjust path to only upload backend code
 
   deploy:
     runs-on: ubuntu-latest
@@ -54,3 +54,4 @@ jobs:
           slot-name: 'Production'
           package: .  # artifact root
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4732B0E44718423295AD79CB1E904613 }}
+
