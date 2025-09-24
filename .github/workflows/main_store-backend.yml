@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -24,6 +24,7 @@ jobs:
           node-version: '22.x'
 
       - name: npm install, build, and test
+        working-directory: ./backend   #  adjust working dir to fix build error
         run: |
           npm install
           npm run build --if-present
@@ -33,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: ./backend   # adjust path to only upload backend code
 
   deploy:
     runs-on: ubuntu-latest
@@ -51,5 +52,5 @@ jobs:
         with:
           app-name: 'store-backend'
           slot-name: 'Production'
-          package: .
+          package: .  # artifact root
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4732B0E44718423295AD79CB1E904613 }}
