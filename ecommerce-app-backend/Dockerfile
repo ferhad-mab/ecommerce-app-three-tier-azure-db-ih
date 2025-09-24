@@ -17,8 +17,8 @@ COPY . .
 RUN npm run build
 
 # Expose port
-EXPOSE 80
-ENV PORT=80
+EXPOSE 8080
+ENV PORT=8080
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD node healthcheck.js
